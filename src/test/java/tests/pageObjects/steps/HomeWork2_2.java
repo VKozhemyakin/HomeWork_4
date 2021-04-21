@@ -1,53 +1,50 @@
-package Tests;
+package tests.pageObjects.steps;
 
+import tests.TestBase;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.RandomUtils.*;
 
-public class HomeWork2_2GetRandomUtilsTests extends TestBase {
+public class HomeWork2_2 extends TestBase {
 
-    String firstName = getRandomString(10),
-            lastName = getRandomString(10),
-            userEmail = getRandomEmail(),
-            gender = "Male",
-            userNumber = getRandomPhone(),
-            dateOfBirthDay = "12",
-            dateOfBirthMonth = "May",
-            dateOfBirthYear = "1989",
-            subject1 = "Computer Science",
-            subject2 = "Arts",
-            subject3 = "History",
-            hobby1 = "Sports",
-            hobby2 = "Reading",
-            hobby3 = "Music",
-            picture = "1.png",
-            currentAddress = getRandomMessage(20, 100),
-            state = "NCR",
-            city = "Noida";
+    RegisrationPage RegistrationPage;
 
     @Test
     void checkRegistrationForm(){
+        RegistrationPage = new RegisrationPage();
 
+        String firstName = "Ben",
+                lastName = "Smith",
+                userEmail = "Smith@gmail.com",
+                gender = "Male",
+                userNumber = "9876543212",
+                dateOfBirthDay = "12",
+                dateOfBirthMonth = "May",
+                dateOfBirthYear = "1989",
+                subject1 = "Computer Science",
+                subject2 = "Arts",
+                subject3 = "History",
+                hobby1 = "Sports",
+                hobby2 = "Reading",
+                hobby3 = "Music",
+                picture = "1.png",
+                currentAddress = "Gomel, Sovetskaya",
+                state = "NCR",
+                city = "Noida";
 
-        $x("//div[@class='practice-form-wrapper']").shouldHave(text("Student Registration Form"));
+        RegistrationPage.checkPageHeader("Student Registration Form");
 
-        $x("//input[@id='firstName']").val(firstName);
+        RegistrationPage.setFirstNameInput(firstName);
         $x("//input[@id='lastName']").val(lastName);
         $x("//input[@id='userEmail']").val(userEmail);
 
         $x("//input[@name='gender'][@value='"+gender+"']/following-sibling::label").click();
 
-
         $x("//input[@id='userNumber']").val(userNumber);
         $x("//input[@id='dateOfBirthInput']").click();
 
-        if (dateOfBirthDay.length() == 1) dateOfBirthDay = "0" + dateOfBirthDay;
-        $x("//select[@class='react-datepicker__year-select']").selectOption(dateOfBirthYear);
-        $x("//select[@class='react-datepicker__month-select']").selectOption(dateOfBirthMonth);
-        $x("//div[contains(@class,'react-datepicker__day--0"+dateOfBirthDay+"')]").click();
-
+        RegistrationPage.setBirthDate(dateOfBirthYear, dateOfBirthMonth, dateOfBirthDay);
 
         $x("//input[@id='subjectsInput']").val(subject1).pressEnter();
         $x("//input[@id='subjectsInput']").val(subject2).pressEnter();

@@ -1,10 +1,8 @@
-package Tests.pageObjects.Scenarios;
+package tests.pageObjects.scenarios;
 
-import Tests.TestBase;
+import tests.TestBase;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public class HomeWork2_2 extends TestBase {

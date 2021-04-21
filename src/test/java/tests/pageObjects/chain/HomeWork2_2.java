@@ -1,6 +1,6 @@
-package Tests.pageObjects.Chain;
+package tests.pageObjects.chain;
 
-import Tests.TestBase;
+import tests.TestBase;
 import org.junit.jupiter.api.Test;
 
 public class HomeWork2_2 extends TestBase {

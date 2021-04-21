@@ -1,12 +1,10 @@
-package Tests;
-
-import org.junit.jupiter.api.Test;
+package tests.pageObjects.chain;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.open;
 
-public class HomeWork2_2 extends TestBase {
-
+public class RegisrationPage {
     String firstName = "Ben",
             lastName = "Smith",
             userEmail = "Smith@gmail.com",
@@ -26,27 +24,24 @@ public class HomeWork2_2 extends TestBase {
             state = "NCR",
             city = "Noida";
 
-    @Test
-    void checkRegistrationForm(){
-
-
+    public RegisrationPage openPage() {
+        open("https:/demoqa.com/automation-practice-form");
         $x("//div[@class='practice-form-wrapper']").shouldHave(text("Student Registration Form"));
 
+        return this;
+    }
+
+    public RegisrationPage fillForm() {
         $x("//input[@id='firstName']").val(firstName);
         $x("//input[@id='lastName']").val(lastName);
         $x("//input[@id='userEmail']").val(userEmail);
 
         $x("//input[@name='gender'][@value='"+gender+"']/following-sibling::label").click();
 
-
         $x("//input[@id='userNumber']").val(userNumber);
         $x("//input[@id='dateOfBirthInput']").click();
 
-        if (dateOfBirthDay.length() == 1) dateOfBirthDay = "0" + dateOfBirthDay;
-        $x("//select[@class='react-datepicker__year-select']").selectOption(dateOfBirthYear);
-        $x("//select[@class='react-datepicker__month-select']").selectOption(dateOfBirthMonth);
-        $x("//div[contains(@class,'react-datepicker__day--0"+dateOfBirthDay+"')]").click();
-
+        setBirthDate(dateOfBirthYear, dateOfBirthMonth, dateOfBirthDay);
 
         $x("//input[@id='subjectsInput']").val(subject1).pressEnter();
         $x("//input[@id='subjectsInput']").val(subject2).pressEnter();
@@ -68,6 +63,19 @@ public class HomeWork2_2 extends TestBase {
         $x("//button[@id='submit']").click();
         $x("//div[@id='example-modal-sizes-title-lg']").shouldHave(text("Thanks for submitting the form"));
 
+        return this;
+    }
+
+    public void setBirthDate(String year, String month, String day) {
+
+        $x("//select[@class='react-datepicker__year-select']").selectOption(year);
+        $x("//select[@class='react-datepicker__month-select']").selectOption(month);
+        $x("//div[contains(@class,'react-datepicker__day--0"+day+"')]").click();
+
+    }
+
+    public void checkData() {
+
         $x("//td[text()='Student Name']").parent().shouldHave(text(firstName + " " + lastName));
         $x("//td[text()='Student Email']").parent().shouldHave(text(userEmail));
         $x("//td[text()='Gender']").parent().shouldHave(text(gender));
@@ -79,7 +87,6 @@ public class HomeWork2_2 extends TestBase {
         $x("//td[text()='Address']").parent().shouldHave(text(currentAddress));
         $x("//td[text()='State and City']").parent().shouldHave(text(state + " " + city));
 
-
-
     }
 }
+

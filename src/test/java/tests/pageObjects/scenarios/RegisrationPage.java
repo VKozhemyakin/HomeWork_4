@@ -1,6 +1,4 @@
-package Tests.pageObjects.Scenarios;
-
-import com.codeborne.selenide.SelenideElement;
+package tests.pageObjects.scenarios;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
